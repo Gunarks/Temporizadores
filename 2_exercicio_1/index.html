@@ -5,6 +5,7 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="github.com/Gunarks">
         <title>Popup extremamente irritante</title>
         <style>
             h1 {
@@ -60,7 +61,7 @@
                 function openPopup() {
                     popup.style.display = 'block';
 
-                    interval = setTimeout(closePopup,6000)
+                    interval = setTimeout(closePopup, 6000)
                 }
 
                 function closePopup() {
@@ -68,7 +69,7 @@
                     popup.parentNode.removeChild(popup);
 
                     clearTimeout(interval);
-        
+
                 }
 
                 setTimeout(openPopup, 3000);

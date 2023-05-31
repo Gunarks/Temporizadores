@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercício</title>
+    <style>
+            h1 {
+                text-align: center;
+                background-color: black;
+                color: blueviolet;
+                padding: 50px;
+                text-transform: uppercase;
+            }
+    </style>
+</head>
+<body>
+    <h1>Fazendo um relógio</h1>
+
+    <div class="watch">
+
+    </div>
+
+
+    <script>
+        (()=> {
+
+            let $relogio = document.querySelector('.watch');
+
+            function getHour() {
+                let data = new Date();
+
+                let h = format(data.getHours());
+                let m = format(data.getMinutes());
+                let s = format(data.getSeconds());
+
+                return h + ':' + m + ':' + s;
+            }
+
+            function format(t) {
+                return t < 10 ? '0' + t : t;
+            }
+
+            function mostrarRelogio(atual){
+                $relogio.textContent = atual;
+            }
+
+            mostrarRelogio(getHour());
+
+            setInterval(()=> {
+                mostrarRelogio(getHour()), 1000
+            });
+
+        })()
+    </script>
+</body>
+</html>

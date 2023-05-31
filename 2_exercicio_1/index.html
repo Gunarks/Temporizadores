@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Popup extremamente irritante</title>
+        <style>
+            h1 {
+                background-color: #000;
+                color: #4ffd28a1;
+                padding: 40px;
+                text-align: center;
+                font-size: 60px;
+                border: 3px solid #4ffd28a1;
+                border-radius: 80px;
+            }
+
+            .banner {
+                padding: 20px;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                box-shadow: 0 0 0 1000px rgba(0, 0, 0, .8);
+                display: none;
+            }
+
+        </style>
+    </head>
+
+    <body>
+        <h1>Fazendo um popup extremamente irritante!</h1>
+        <div class="banner">
+            <h2>Banner muito irritante</h2>
+            <button class="banner_close">X</button>
+            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minus dolorem nulla a, veritatis laborum quia
+                saepe officiis quasi? Similique qui rem ipsum doloribus, ipsa eum minus magni alias nisi deserunt.
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Minus rerum praesentium veritatis quasi beatae
+                reiciendis ullam ipsam ex sit esse nesciunt error vel repudiandae molestiae magnam, harum enim, maiores
+                quo?
+
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nam esse beatae, placeat suscipit eaque
+                commodi soluta? Sed deleniti fugiat, aliquid repellat omnis facilis, cumque quis veritatis, corporis
+                nisi dolore assumenda.
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatibus, magnam deleniti, accusamus
+                consequatur rerum quae est vero officiis similique earum maiores dolorum sed quasi cupiditate magni
+                ajksjdasdjiaijsdjijjaaj
+            </p>
+        </div>
+        <script>
+            (() => {
+                let popup = document.querySelector('.banner');
+                let btn = document.querySelector('.banner_close');
+                let interval = null;
+
+                btn.addEventListener('click', closePopup);
+
+                function openPopup() {
+                    popup.style.display = 'block';
+
+                    interval = setTimeout(closePopup,6000)
+                }
+
+                function closePopup() {
+                    btn.removeEventListener('click', closePopup);
+                    popup.parentNode.removeChild(popup);
+
+                    clearTimeout(interval);
+        
+                }
+
+                setTimeout(openPopup, 3000);
+            })()
+
+        </script>
+    </body>
+
+</html>

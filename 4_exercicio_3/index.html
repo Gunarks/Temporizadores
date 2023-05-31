@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Exercício</title>
+
+        <style>
+            body {
+                background-color: #ccc;
+            }
+
+            h1 {
+                text-align: center;
+                background-color: black;
+                color: rebeccapurple;
+                padding: 20px 0;
+                width: 50%;
+                margin: 0 auto;
+            }
+
+            form {
+                width: 400px;
+                margin: 50px auto;
+                background-color: black;
+                padding: 50px;
+                text-align: center;
+                border: 2px solid rebeccapurple;
+                border-radius: 10px;
+            }
+
+            input,
+            button {
+                padding: 10px;
+                border: none;
+                border-radius: 30px;
+                color: rebeccapurple;
+                font-weight: bold;
+            }
+
+            input {
+                outline-color: rebeccapurple;
+            }
+
+            button {
+                cursor: pointer;
+            }
+
+        </style>
+    </head>
+
+    <body>
+        <h1>Cronômetro</h1>
+
+        <form action="#">
+            <input type="text" id="cronometro">
+            <button id="start">Start</button>
+            <button id="pause">Pause</button>
+            <button id="break">Break</button>
+        </form>
+
+
+        <script>
+            (function () {
+
+                let $cronometro = document.getElementById("cronometro");
+                let $start = document.getElementById("start");
+                let $pause = document.getElementById("pause");
+                let $break = document.getElementById("break");
+                let interval = null;
+                let timestampClickStart = 0;
+                let timestampClickpause = 0;
+                let loading = false;
+                let currentTime = 0;
+
+                $start.addEventListener("click", start);
+                $pause.addEventListener("click", pause);
+                $break.addEventListener("click", stop);
+
+                function start() {
+                    if (loading) return;
+                    stop();
+                    timestampClickStart = Date.now();
+                    startTime();
+                    loading = true;
+                }
+
+                function startTime(timeLoading) {
+                    let time = timeLoading || 0;
+                    interval = setInterval(function () {
+                        let timestampnow = Date.now();
+
+                        let diference = timestampnow - timestampClickStart;
+
+                        $cronometro.value = formatMs(diference + time);
+                    }, 100)
+                }
+
+                function formatMs(ms) {
+                    const MINUTO = 60 * 1000;
+
+                    if (ms < 1000) {
+                        return ms;
+                    } else if (ms < MINUTO) {
+                        let s = ms / 1000;
+                        s = parseInt(s);
+                        let c = ms - (s * 1000);
+
+                        return s + ":" + c;
+                    } else {
+                        let m = ms / MINUTO;
+                        m = parseInt(m);
+                        return m + ":" + formatMs(ms - m * MINUTO);
+                    }
+                }
+
+
+                function pause() {
+
+                    if (!$cronometro.value) return;
+                    if (loading) {
+                        clearInterval(interval);
+                        timestampClickpause = Date.now();
+                        currentTime += (timestampClickpause - timestampClickStart);
+                    } else {
+                        timestampClickStart = Date.now();
+                        startTime(currentTime);
+                    }
+                    loading = !loading;
+                }
+
+                function stop() {
+                    loading = false;
+                    timestampClickStart = 0;
+                    timestampClickpause = 0;
+                    currentTime = 0
+                    clearInterval(interval);
+
+                    $cronometro.value = "";
+                }
+
+            })();
+        </script>
+    </body>
+
+</html>
